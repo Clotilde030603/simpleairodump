@@ -27,7 +27,7 @@ void parse_radiotap(const u_char *packet, int *pwr) {
     if (radiotap_len >= 14) {
         *pwr = (int8_t)packet[14]; // Radiotap Header에서 RSSI 읽기
     } else {
-        *pwr = -128; // 기본값
+        *pwr = -128; 
     }
 }
 
@@ -52,10 +52,10 @@ void parse_encryption(const u_char *tags, int tag_len, char *enc) {
             }
         }
 
-        offset += 2 + tag_len; // 다음 태그로 이동
+        offset += 2 + tag_len;
     }
 
-    // 암호화 없음
+    
     strcpy(enc, "Open");
 }
 
@@ -70,7 +70,7 @@ void parse_beacon_frame(const u_char *packet, int pwr) {
              bssid_ptr[3], bssid_ptr[4], bssid_ptr[5]);
 
     const u_char *tags = frame + 36;
-    int tag_len = le16toh(*(uint16_t *)(frame + 34)); // 태그 전체 길이 계산
+    int tag_len = le16toh(*(uint16_t *)(frame + 34)); 
     char essid[33] = "<hidden>";
     if (tags[0] == 0 && tags[1] <= 32) {
         int ssid_len = tags[1];
